@@ -1,0 +1,263 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>personal_center</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Movie_store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <link href="../static/css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <link href="../static/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- start plugins -->
+    <script type="text/javascript" src="../static/js/jquery-1.11.1.min.js"></script>
+    <link href='http://fonts.useso.com/css?family=Roboto+Condensed:100,200,300,400,500,600,700,800,900' rel='stylesheet' type='text/css'>
+    <script src="../static/js/function.js"></script>
+     <script src="https://kit.fontawesome.com/d207e889e8.js" crossorigin="anonymous"></script>
+	
+	
+</head>
+text-decoration=none color="inherit"
+
+<body>
+
+<div class="container">
+    <div class="container_wrap">
+        <div class="header_top">
+            <div class="col-sm-3 logo"><a href="#"><img src="../static/images/logo.png" width="200" height=auto alt=""/></a></div>
+            <div class="col-sm-6 nav nav-pills navbar">
+                <!--                <div>-->
+                <button class="navbtn" ><a href="/main_menu">Main Menu </a></button>
+                <button class="navbtn" ><a href="/personal">Personal Center </a></button>
+                <button class="navbtn" ><a href="/complex_data_visualization">Data Visualization </a></button>
+                <button class="navbtn"><a href="/logout">Sign Out</a></button>
+                <!--                </div>-->
+            </div>
+            <div class="col-sm-3 header_right">
+                <ul class="header_right_box">
+                    <div class="user-info">
+                        <img src="../static/images/head1.png" alt="" width="20" height=auto>
+                        <li><p><a href="/logout">{{first_name}}</a></p></li>
+                    </div>
+                    <div class="clearfix"></div>
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+
+
+            <div class="search_bar_content">
+                <!--serch bar-->
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3">
+                       <form action="/search" method="POST">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">Go!</button>
+                    </span>
+                </div><!-- /input-group -->
+            </form>
+                    </div><!-- /.col-lg-6 -->
+                </div><!-- /.row -->
+            </div>
+
+<div class="content">
+    <h2 class="m_3">Personal Collects</h2>
+    {% for thumb_movie in thumb_movies %}
+            <div class="clearfix"></div>
+        <div class="movie movie-test movie-test-dark movie-test-left">
+            <div class="movie__images">
+                <a href="{{ url_for('get_movie_by_id', movie_id=thumb_movie.movie_id) }}" class="movie-beta__link">
+                    <img alt="" src="{{ thumb_movie.Poster_Link }}" class="img-responsive" alt=""/>
+                </a>
+            </div>
+            <div class="movie__info">
+                <a href="{{ url_for('get_movie_by_id', movie_id=thumb_movie.movie_id) }}" class="movie__title">{{ thumb_movie.title_movie }} ({{ thumb_movie.release_date }})  </a>
+                <p class="movie__time">{{ thumb_movie.Runtime }} </p>
+                <p class="movie__option">
+                    <a href="{{ url_for('get_movie_by_id', movie_id=thumb_movie.movie_id) }}">{{ thumb_movie.movie_description }}</a>
+                </p>
+                <ul class="list_6">
+                    <li>IMDB Rating : &nbsp;&nbsp;<p>{{ thumb_movie.IMDB_Rating }}</p></li>
+                     <li><button class="like-btn" data-movie-id="{{ thumb_movie.movie_id }}" data-user-id="{{user_id}}"><i class="far fa-heart"></i></button><p></p>
+
+                </ul>
+            </div>
+        </div>
+
+
+    {% endfor %}
+       <div class="clearfix"> </div>
+
+</div>
+
+
+
+
+
+
+							   <div class="content">
+    <!--Comments From Me-->
+<h2 class="m_3">Comments From Me</h1>
+{% for comment in comments %}
+    <div class="movie_top">
+        <div class="movie_box">
+            <!-- Movie variant with time -->
+            <div class="movie movie-test movie-test-dark movie-test-left">
+                <div class="movie__images">
+                    <a href="single.html" class="movie-beta__link">
+                        <img alt="" src="{{comment.Poster_Link}}" class="img-responsive" alt=""/>
+                    </a>
+                </div>
+                <div class="movie__info">
+                    <div class="preview"><a href="#"></a></div>
+													<div class="title">{{ comment.title_movie }} </div>
+                    <div class="data" data-comment-id="{{ comment.commentid }}">
+					
+                        <div class="title">{{ comment.title }} </div>
+						<div class="title"> {{ comment.date.strftime('%Y-%m-%d %H:%M:%S') }}</div>
+                        <p>{{ comment.article }}</p>
+                        <!-- 删除和编辑按钮 -->
+                        <button onclick="deleteComment({{ comment.commentid }})">Delete</button>
+                        <button onclick="openEditComment({{ comment.commentid }})">Edit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+{% endfor %}
+
+
+<!-- Edit comment modal -->
+<div id="edit_comment_modal" class="modal">
+    <div class="modal-content">
+        <span id="edit_comment_close" class="close">&times;</span>
+        <form id="edit_comment_form" action="/edit_comment" method="post">
+            <input type="hidden" name="comment_id" id="edit_comment_id" value="" />
+            <input type="text" name="title" id="edit_comment_title" value="" placeholder="Title" /><br/>
+            <textarea name="article" id="edit_comment_article" placeholder="Article"></textarea><br/>
+            <input type="submit" value="确认" />
+            <input type="button" value="取消" onclick="closeEditComment()" />
+        </form>
+    </div>
+</div>
+
+<!-- 背景遮罩层 -->
+<div id="fade" class="black_overlay"></div>
+
+                        <div class="col-md-3">
+
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+
+            </div>
+
+
+ <script>
+     function openEditComment(commentId) {
+     const titleElement = document.querySelector(`[data-comment-id="${commentId}"] .title`);
+     const articleElement = document.querySelector(`[data-comment-id="${commentId}"] p`);
+
+        const editCommentModal = document.getElementById('edit_comment_modal');
+        editCommentModal.style.display = 'block';
+
+        document.getElementById('edit_comment_id').value = commentId;
+        document.getElementById('edit_comment_title').value = titleElement.textContent.trim();
+        document.getElementById('edit_comment_article').value = articleElement.textContent.trim();
+    }
+	    function closeEditComment() {
+         const editCommentModal = document.getElementById('edit_comment_modal');
+         editCommentModal.style.display = 'none';
+}
+
+	document.getElementById('edit_comment_form').addEventListener('submit', function (event) {
+    event.preventDefault(); // 阻止默认的表单提交行为
+
+    const formData = new FormData(event.target);
+    fetch('/edit_comment', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload(); // 成功后重新加载页面
+        } else {
+            alert(data.message);
+        }
+    });
+});
+function deleteComment(commentId) {
+    fetch('/delete_comment', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ comment_id: commentId }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload(); // 成功后重新加载页面
+        } else {
+            alert(data.message);
+        }
+    });
+}
+
+
+$(document).ready(function () {
+  $('.like-btn').each(function () {
+    const likeBtn = $(this);
+    const movie_id = likeBtn.data('movie-id');
+    const user_id = likeBtn.data('user-id');
+
+    // 检查点赞状态
+    check_like_status(likeBtn, movie_id, user_id);
+
+    // 绑定点赞按钮点击事件
+    likeBtn.on('click', function () {
+      toggle_like(likeBtn, movie_id, user_id);
+    });
+  });
+});
+
+function check_like_status(likeBtn, movie_id, user_id){
+  $.get('/check_like_status', { movie_id: movie_id, user_id: user_id })
+    .done(function (response) {
+      if (response.liked) {
+        // 用户已点赞，显示实心心形图标
+        likeBtn.html('<i class="fas fa-heart"></i>');
+      } else {
+        // 用户未点赞，显示空心心形图标
+        likeBtn.html('<i class="far fa-heart"></i>');
+      }
+    });
+}
+
+function toggle_like(likeBtn, movie_id, user_id){
+  $.post('/toggle_like', { movie_id: movie_id, user_id: user_id })
+    .done(function(response) {
+      if (response.liked) {
+        // 用户已点赞，显示实心心形图标
+        likeBtn.html('<i class="fas fa-heart"></i>');
+          location.reload();
+      } else {
+        // 用户未点赞，显示空心心形图标
+        likeBtn.html('<i class="far fa-heart"></i>');
+         location.reload();
+      }
+    });
+}
+
+
+    </script>
+
+
+
+</body>
+
+</html>

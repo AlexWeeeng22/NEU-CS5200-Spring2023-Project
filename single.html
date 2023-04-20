@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>single</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Movie_store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="../static/css/bootstrap.css" rel='stylesheet' type='text/css' />
+<link href="../static/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<!-- start plugins -->
+    <script src="https://kit.fontawesome.com/d207e889e8.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="../static/js/jquery-1.11.1.min.js"></script>
+<link href='http://fonts.useso.com/css?family=Roboto+Condensed:100,200,300,400,500,600,700,800,900' rel='stylesheet' type='text/css'>
+    <style>
+.movie_image img {
+    max-width: 100%;
+    height: auto;
+}
+    </style>
+</head>
+<body>
+<div class="container">
+	<div class="container_wrap">
+		<div class="container_wrap">
+			<div class="header_top">
+				<div class="col-sm-3 logo"><a href="#"><img src="../static/images/logo.png" width="200" height=auto alt=""/></a></div>
+				<div class="col-sm-6 nav nav-pills navbar">
+					<!--                <div>-->
+                <button class="navbtn" ><a href="/main_menu">Main Menu </a></button>
+                <button class="navbtn" ><a href="/personal">Personal Center </a></button>
+                <button class="navbtn" ><a href="/complex_data_visualization">Data Visualization </a></button>
+                <button class="navbtn"><a href="/logout">Sign Out</a></button>
+					<!--                </div>-->
+				</div>
+				<div class="col-sm-3 header_right">
+					<ul class="header_right_box">
+						<div class="user-info">
+							<img src="../static/images/head1.png" alt="" width="20" height=auto>
+							<li><p><a href="/logout">{{first_name}}</a></p></li>
+						</div>
+						<div class="clearfix"></div>
+					</ul>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+
+
+	   <div class="content">
+      	   <div class="movie_top">
+      	         <div class="col-md-9 movie_box">
+                   <div class="grid images_3_of_2">
+                   	 <div class="movie_image">
+                                <img src="{{ movie.Poster_Link }}" class="img-responsive" alt="" >
+                       </div>
+</div>
+                        <div class="desc1 span_3_of_2">
+							<p class="movie_option">&nbsp;&nbsp;&nbsp;<strong> </strong></p>
+							<p class="movie_option">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Title: </strong>{{movie.title_movie}}</p>
+                        	<p class="movie_option">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Language: </strong>{{movie.language}}</p>
+                        	<p class="movie_option">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Year: </strong>{{movie.release_date}}</p>
+                        	<p class="movie_option">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Category: </strong>{{movie.category}}</p>
+                        	<p class="movie_option">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Director: </strong><a href="#"> {{movie.directors}}</a></p>
+							<p class="movie_option">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>IMBD: </strong>{{movie.IMDB_Rating}}</p>
+                            <p class="movie_option">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Runing time: </strong>{{movie.Runtime}}</p>
+                            <p class="movie_option">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Thumb number: </strong>{{ result}}</p>
+                            <p class="movie_option">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Actors: </strong>{{ movie.actors}}</p>
+
+                             <li><button class="like-btn" data-movie-id="{{ movie_id }}" data-user-id="{{user_id}}"><i class="far fa-heart"></i></button></li>
+                         </div>
+                        <div class="clearfix"> </div>
+                        <p class="m_4">{{movie.movie_description}}</p>
+		             <form method="post" action="{{ url_for('post_comment', movie_id=movie_id) }}">
+  <input type="hidden" name="csrf_token" >
+  <div class="text">
+    <input type="text" class="text" name="title" value="Title:" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Title';}">
+  </div>
+  <div class="text">
+    <textarea name="article" value="Message:" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message';}">Message:</textarea>
+  </div>
+  <div class="form-submit1">
+    <input name="submit" type="submit" id="submit" value="Submit Your Message"><br>
+  </div>
+  <div class="clearfix"></div>
+</form>
+
+		                <div class="single">
+		                <h1>{{comment_num}} Comments</h1>
+		                <ul class="single_list">
+							 {% for comment in comments %}
+					        <li>
+					            <div class="preview"><a href="#"><img src="../static/images/head1.png" class="img-responsive" alt=""></a></div>
+					            <div class="data">
+					                <div class="title">{{comment.title}} /  {{comment.first_name}} /  <a href="#">{{comment.date.strftime('%Y-%m-%d %H:%M:%S') }}</a></div>
+					                <p>{{comment.article}}</p>
+					            </div>
+					            <div class="clearfix"></div>
+					        </li>
+							 {% endfor %}
+			  			</ul>
+                      </div>
+                      </div>
+                      <div class="col-md-3">
+                      	<div class="movie_img"><div class="grid_2">
+<div class="caption1">
+					  <ul class="list_5 list_7">
+							    
+							    	
+							</div>
+						    </div>
+						   </div>
+                   
+						 
+		               </div>
+                      <div class="clearfix"> </div>
+                  </div>
+           </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function () {
+  $('.like-btn').each(function () {
+    const likeBtn = $(this);
+    const movie_id = likeBtn.data('movie-id');
+    const user_id = likeBtn.data('user-id');
+
+    // 检查点赞状态
+    check_like_status(likeBtn, movie_id, user_id);
+
+    // 绑定点赞按钮点击事件
+    likeBtn.on('click', function () {
+      toggle_like(likeBtn, movie_id, user_id);
+    });
+  });
+});
+
+function check_like_status(likeBtn, movie_id, user_id){
+  $.get('/check_like_status', { movie_id: movie_id, user_id: user_id })
+    .done(function (response) {
+      if (response.liked) {
+        // 用户已点赞，显示实心心形图标
+        likeBtn.html('<i class="fas fa-heart"></i>');
+      } else {
+        // 用户未点赞，显示空心心形图标
+        likeBtn.html('<i class="far fa-heart"></i>');
+      }
+    });
+}
+
+function toggle_like(likeBtn, movie_id, user_id){
+  $.post('/toggle_like', { movie_id: movie_id, user_id: user_id })
+    .done(function(response) {
+      if (response.liked) {
+        // 用户已点赞，显示实心心形图标
+        likeBtn.html('<i class="fas fa-heart"></i>');
+          location.reload();
+      } else {
+        // 用户未点赞，显示空心心形图标
+        likeBtn.html('<i class="far fa-heart"></i>');
+        location.reload();
+      }
+    });
+}
+
+
+</script>
+
+
+</body>
+</html>
